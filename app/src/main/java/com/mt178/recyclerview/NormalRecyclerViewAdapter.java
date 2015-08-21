@@ -11,10 +11,10 @@ import android.widget.TextView;
  * Created by Administrator on 2015/8/20.
  */
 public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecyclerViewAdapter.NomalTextViewHolder> {
+    private static NomalTextViewHolder.ItemClickListener mListener;
     private LayoutInflater mInflater;
     private Context mContext;
     private String[] mTitles;
-    private static NomalTextViewHolder.ItemClickListener mListener;
 
     /**
      * 构造函数
@@ -43,52 +43,6 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
         return mTitles == null ? 0 : mTitles.length;
     }
 
-    public static class NomalTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView mTextView;
-
-        public NomalTextViewHolder(View itemView) {
-            super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.text_view);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (mListener != null) {
-                mListener.onItemClick(v, getPosition());
-            }
-        }
-
-        /**
-         * 接口  用于点击Item
-         */
-        public interface ItemClickListener {
-            void onItemClick(View view, int positon);
-        }
-    }
-
-    public static class NomalTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView mTextView;
-
-        public NomalTextViewHolder(View itemView) {
-            super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.text_view);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (mListener != null) {
-                mListener.onItemClick(v, getPosition());
-            }
-        }
-
-        /**
-         * 接口  用于点击Item
-         */
-        public interface ItemClickListener {
-            void onItemClick(View view, int positon);
-        }
-    }
-
     /**
      * 给外部提供的方法
      *
@@ -96,5 +50,28 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
      */
     public void setOnItemClick(NomalTextViewHolder.ItemClickListener Listener) {
         mListener = Listener;
+    }
+
+    public static class NomalTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView mTextView;
+
+        public NomalTextViewHolder(View itemView) {
+            super(itemView);
+            mTextView = (TextView) itemView.findViewById(R.id.text_view);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                mListener.onItemClick(v, getPosition());
+            }
+        }
+
+        /**
+         * 接口  用于点击Item
+         */
+        public interface ItemClickListener {
+            void onItemClick(View view, int positon);
+        }
     }
 }
