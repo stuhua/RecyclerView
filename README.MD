@@ -1,5 +1,7 @@
 # Android5.0 RecyclerView的使用方法
 
+## 预览
+
 <img src="/show.png" width="160px" height="266.5px" />
 
 ## 用来做什么
