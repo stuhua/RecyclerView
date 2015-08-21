@@ -16,11 +16,16 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
     private String[] mTitles;
     private static NomalTextViewHolder.ItemClickListener mListener;
 
-
-    public NormalRecyclerViewAdapter(Context context) {
+    /**
+     * 构造函数
+     *
+     * @param context 上下文
+     * @param titles  String[] 相当于ArrayList
+     */
+    public NormalRecyclerViewAdapter(Context context, String[] titles) {
         this.mContext = context;
         mInflater = LayoutInflater.from(context);
-        mTitles = context.getResources().getStringArray(R.array.titles);
+        this.mTitles = titles;
     }
 
     @Override
@@ -49,15 +54,46 @@ public class NormalRecyclerViewAdapter extends RecyclerView.Adapter<NormalRecycl
         @Override
         public void onClick(View v) {
             if (mListener != null) {
-                mListener.setItemClickListener(v,getPosition());
+                mListener.onItemClick(v, getPosition());
             }
         }
 
+        /**
+         * 接口  用于点击Item
+         */
         public interface ItemClickListener {
-            void setItemClickListener(View view,int positon);
+            void onItemClick(View view, int positon);
         }
     }
 
+    public static class NomalTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView mTextView;
+
+        public NomalTextViewHolder(View itemView) {
+            super(itemView);
+            mTextView = (TextView) itemView.findViewById(R.id.text_view);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                mListener.onItemClick(v, getPosition());
+            }
+        }
+
+        /**
+         * 接口  用于点击Item
+         */
+        public interface ItemClickListener {
+            void onItemClick(View view, int positon);
+        }
+    }
+
+    /**
+     * 给外部提供的方法
+     *
+     * @param Listener 匿名内部类，自定义实现里面的方法
+     */
     public void setOnItemClick(NomalTextViewHolder.ItemClickListener Listener) {
         mListener = Listener;
     }
